@@ -16,9 +16,11 @@ var filterQslider, filterFreqResponseSlider;
 var mainLabel, frequenciesLabel, amplitudesLabel;
 // var one, two, three, four, five, six, seven, eight;
 
-
+var filterParmLabel;
 
 function setup() {
+
+  var filterResStart = 3;
 
 // General Block
   createCanvas(1100, 550);
@@ -26,69 +28,68 @@ function setup() {
   mainLabel = createDiv('<div style="color:#FFFFFF"> <a href=https://cskonopka.github.io/p5js/ style="color:#FFFFFF"; text-align:center;><h3>sine playground ~ christopher konopka</h3></div>');
   mainLabel.position(740, -10);
 
-  githubLabel = createDiv('<div style="color:#FFFFFF"> <a href=https://github.com/cskonopka/p5js style="color:#FFFFFF"; text-align:center;><h3>github</h3></a>');
-  githubLabel.position(1130, 40);
-
+  // githubLabel = createDiv('<div style="color:#FFFFFF"> <a href=https://github.com/cskonopka/p5js style="color:#FFFFFF"; text-align:center;><h3>github</h3></a>');
+  // githubLabel.position(700, 40);
 
 // Frequency Block
   var sliderFREQpos = 35;
-  var sliderFREQvert = 20;
+  var sliderFREQvert = 25;
 
-  oscFreqSlider1 = createSlider(0, 2500, 47);
+  oscFreqSlider1 = createSlider(0, 4700, 47);
   oscFreqSlider1.position(sliderFREQpos, 20+sliderFREQvert);
 
-  oscFreqSlider2 = createSlider(0, 2500, 113);
+  oscFreqSlider2 = createSlider(0, 4700, 113);
   oscFreqSlider2.position(sliderFREQpos, 45+sliderFREQvert);
 
-  oscFreqSlider3 = createSlider(0, 2500, 8);
+  oscFreqSlider3 = createSlider(0, 4700, 8);
   oscFreqSlider3.position(sliderFREQpos, 70+sliderFREQvert);
 
-  oscFreqSlider4 = createSlider(0, 2500, 13);
+  oscFreqSlider4 = createSlider(0, 4700, 13);
   oscFreqSlider4.position(sliderFREQpos, 95+sliderFREQvert);
 
-  oscFreqSlider5 = createSlider(0, 2500, 147);
+  oscFreqSlider5 = createSlider(0, 4700, 147);
   oscFreqSlider5.position(sliderFREQpos, 120+sliderFREQvert);
 
-  oscFreqSlider6 = createSlider(0, 2500, 226);
+  oscFreqSlider6 = createSlider(0, 4700, 226);
   oscFreqSlider6.position(sliderFREQpos, 145+sliderFREQvert);
 
-  oscFreqSlider7 = createSlider(0, 2500, 194);
+  oscFreqSlider7 = createSlider(0, 4700, 194);
   oscFreqSlider7.position(sliderFREQpos, 170+sliderFREQvert);
 
-  oscFreqSlider8 = createSlider(0, 2500, 147);
+  oscFreqSlider8 = createSlider(0, 4700, 147);
   oscFreqSlider8.position(sliderFREQpos, 195+sliderFREQvert);
 
   frequenciesLabel = createDiv('<div style="color:#FFFFFF"> <p>frequencies</p></div>');
-  frequenciesLabel.position(15, 0);
+  frequenciesLabel.position(15, -5);
  
-  one = createDiv('<div style="color:#FFFFFF"> <p>#1</p></div>');
+  one = createDiv('<div style="color:#FFFFFF"> <h5>#1</h5></div>');
   one.position(15, 25);  
 
-  two = createDiv('<div style="color:#FFFFFF"> <p>#2</p></div>');
+  two = createDiv('<div style="color:#FFFFFF"> <h5>#2</h5></div>');
   two.position(15, 50);
 
-  three = createDiv('<div style="color:#FFFFFF"> <p>#3</p></div>');
+  three = createDiv('<div style="color:#FFFFFF"> <h5>#3</h5></div>');
   three.position(15, 75);  
 
-  four = createDiv('<div style="color:#FFFFFF"> <p>#4</p></div>');
+  four = createDiv('<div style="color:#FFFFFF"> <h5>#4</h5></div>');
   four.position(15, 100);
 
-  five = createDiv('<div style="color:#FFFFFF"> <p>#5</p></div>');
+  five = createDiv('<div style="color:#FFFFFF"> <h5>#5</h5></div>');
   five.position(15, 125);  
  
-  six = createDiv('<div style="color:#FFFFFF"> <p>#6</p></div>');
+  six = createDiv('<div style="color:#FFFFFF"> <h5>#6</h5></div>');
   six.position(15, 150);
 
-  seven = createDiv('<div style="color:#FFFFFF"> <p>#7</p></div>');
+  seven = createDiv('<div style="color:#FFFFFF"> <h5>#7</h5></div>');
   seven.position(15, 175);  
 
-  eight = createDiv('<div style="color:#FFFFFF"> <p>#8</p></div>');
+  eight = createDiv('<div style="color:#FFFFFF"> <h5>#8</h5></div>');
   eight.position(15, 200);
 
 // Amplitude Block
   var sliderAMPpos = 200;
-  var sliderAMPvert = 20;
-  var ampStart = 0.1;  
+  var sliderAMPvert = 25;
+  var ampStart = 0.1;
 
   oscAmpSlider1 = createSlider(0, 255, 128);
   oscAmpSlider1.position(sliderAMPpos, 20+sliderAMPvert);
@@ -115,44 +116,47 @@ function setup() {
   oscAmpSlider8.position(sliderAMPpos, 195+sliderAMPvert);
 
   amplitudesLabel = createDiv('<div style="color:#FFFFFF"> <p>amplitudes</p></div>');
-  amplitudesLabel.position(180, 0);
+  amplitudesLabel.position(180, -5);
 
-  one2 = createDiv('<div style="color:#FFFFFF"> <p>#1</p></div>');
+  one2 = createDiv('<div style="color:#FFFFFF"> <h5>#1</h5></div>');
   one2.position(180, 25);  
  
-  two2 =  createDiv('<div style="color:#FFFFFF"> <p>#2</p></div>');  
+  two2 =  createDiv('<div style="color:#FFFFFF"> <h5>#2</h5></div>');  
   two2.position(180, 50);
 
-  three2 = createDiv('<div style="color:#FFFFFF"> <p>#3</p></div>');
+  three2 = createDiv('<div style="color:#FFFFFF"> <h5>#3</h5></div>');
   three2.position(180, 75);  
 
-  four2 = createDiv('<div style="color:#FFFFFF"> <p>#4</p></div>');
+  four2 = createDiv('<div style="color:#FFFFFF"> <h5>#4</h5></div>');
   four2.position(180, 100);
 
-  five2 = createDiv('<div style="color:#FFFFFF"> <p>#5</p></div>');
+  five2 = createDiv('<div style="color:#FFFFFF"> <h5>#5</h5></div>');
   five2.position(180, 125);  
  
-  six2 = createDiv('<div style="color:#FFFFFF"> <p>#6</p></div>');
+  six2 = createDiv('<div style="color:#FFFFFF"> <h5>#6</h5></div>');
   six2.position(180, 150);
 
-  seven2 = createDiv('<div style="color:#FFFFFF"> <p>#7</p></div>');
+  seven2 = createDiv('<div style="color:#FFFFFF"> <h5>#7</h5></div>');
   seven2.position(180, 175);  
 
-  eight2 = createDiv('<div style="color:#FFFFFF"> <p>#8</p></div>');
+  eight2 = createDiv('<div style="color:#FFFFFF"> <h5>#8</h5></div>');
   eight2.position(180, 200);
 
 // Filter Block
-  filterQLabel = createDiv('<div style="color:#FFFFFF"> <p>filter Q</p></div>');
-  filterQLabel.position(365, 0);
+  filterParmLabel = createDiv('<div style="color:#FFFFFF"> <p>filter parameters</p></div>');
+  filterParmLabel.position(345, -5);
+
+  filterQLabel = createDiv('<div style="color:#FFFFFF"> <h5>cuttoff</h5></div>');
+  filterQLabel.position(345, 25);
 
   filterQslider = createSlider(0, 5000, 255);
-  filterQslider.position(365, 40);  
+  filterQslider.position(410, 45);  
 
-  filterFreqResLabel =createDiv('<div style="color:#FFFFFF"> <p>filter resonance</p></div>');
-  filterFreqResLabel.position(365, 50);
+  filterFreqResLabel =createDiv('<div style="color:#FFFFFF"> <h5>resonance</h5></div>');
+  filterFreqResLabel.position(345, 50);
 
-  filterFreqResponseSlider = createSlider(0, 25, .5);
-  filterFreqResponseSlider.position(365, 90);  
+  filterFreqResponseSlider = createSlider(0, 25, filterResStart);
+  filterFreqResponseSlider.position(410, 70);  
 
 
 // Global Waveform Selector
@@ -161,7 +165,7 @@ function setup() {
       "waveform": ['sine', 'sawtooth', 'triangle', 'square']} 
   ];
 
-  waveform = waveformMASTER[0].waveform[1];
+  waveform = waveformMASTER[0].waveform[0];
 
 
 //  Oscillator Block
@@ -233,7 +237,7 @@ function setup() {
 function draw() {
 
 // General Block  
-  background(78,60,70);
+  background(12,58,24);
   var spectrum = fft.analyze();
    
 // Oscillator Frequency Slider Block   
@@ -301,7 +305,8 @@ function draw() {
   beginShape();
  
     for (i = 0; i<spectrum.length; i++) {
-      stroke(255,120,200);
+      // stroke(255,120,200);
+      stroke(143,212,164);      
       var x = map(i, 0, spectrum.length, 0, 5000);
       var y = map(spectrum[i], 0, 512, height, 0);
       vertex(x, y);

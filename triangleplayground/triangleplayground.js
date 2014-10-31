@@ -89,29 +89,30 @@ function setup() {
 // Amplitude Block
   var sliderAMPpos = 200;
   var sliderAMPvert = 25;
+  var ampStart = 0.1;
 
   oscAmpSlider1 = createSlider(0, 255, 128);
   oscAmpSlider1.position(sliderAMPpos, 20+sliderAMPvert);
 
-  oscAmpSlider2 = createSlider(0, 255, 128);
+  oscAmpSlider2 = createSlider(0, 255, ampStart);
   oscAmpSlider2.position(sliderAMPpos, 45+sliderAMPvert);
 
-  oscAmpSlider3 = createSlider(0, 255, 128);
+  oscAmpSlider3 = createSlider(0, 255, ampStart);
   oscAmpSlider3.position(sliderAMPpos, 70+sliderAMPvert);
 
-  oscAmpSlider4 = createSlider(0, 255, 128);
+  oscAmpSlider4 = createSlider(0, 255, ampStart);
   oscAmpSlider4.position(sliderAMPpos, 95+sliderAMPvert);
 
-  oscAmpSlider5 = createSlider(0, 255, 128);
+  oscAmpSlider5 = createSlider(0, 255, ampStart);
   oscAmpSlider5.position(sliderAMPpos, 120+sliderAMPvert);
 
-  oscAmpSlider6 = createSlider(0, 255, 128);
+  oscAmpSlider6 = createSlider(0, 255, ampStart);
   oscAmpSlider6.position(sliderAMPpos, 145+sliderAMPvert);
 
-  oscAmpSlider7 = createSlider(0, 255, 128);
+  oscAmpSlider7 = createSlider(0, 255, ampStart);
   oscAmpSlider7.position(sliderAMPpos, 170+sliderAMPvert);
 
-  oscAmpSlider8 = createSlider(0, 255, 128);
+  oscAmpSlider8 = createSlider(0, 255, ampStart);
   oscAmpSlider8.position(sliderAMPpos, 195+sliderAMPvert);
 
   amplitudesLabel = createDiv('<div style="color:#FFFFFF"> <p>amplitudes</p></div>');
@@ -164,7 +165,7 @@ function setup() {
       "waveform": ['sine', 'sawtooth', 'triangle', 'square']} 
   ];
 
-  waveform = waveformMASTER[0].waveform[1];
+  waveform = waveformMASTER[0].waveform[2];
 
 
 //  Oscillator Block
@@ -236,7 +237,7 @@ function setup() {
 function draw() {
 
 // General Block  
-  background(0);
+  background(36,50,67);
   var spectrum = fft.analyze();
    
 // Oscillator Frequency Slider Block   
@@ -262,38 +263,39 @@ function draw() {
 // Filter Slider Block
   var filterQ = filterQslider.value();
   var filterFreqResponse = filterFreqResponseSlider.value();    
+  var amplitudeBias = 0.13;
 
 // Oscillator Parameters
   oscAmp1 = map(oscAmp1, 0, 255, 0, 1);
-  osc1.amp(oscAmp1*0.1); 
+  osc1.amp(oscAmp1*amplitudeBias); 
     osc1.freq(oscFreq1);
 
   oscAmp2 = map(oscAmp2, 0, 255, 0, 1);
-  osc2.amp(oscAmp2*0.1); 
+  osc2.amp(oscAmp2*amplitudeBias); 
     osc2.freq(oscFreq2);
 
   oscAmp3 = map(oscAmp3, 0, 255, 0, 1);
-  osc3.amp(oscAmp3*0.1); 
+  osc3.amp(oscAmp3*amplitudeBias); 
     osc3.freq(oscFreq3);
   
   oscAmp4 = map(oscAmp4, 0, 255, 0, 1);      
-  osc4.amp(oscAmp4*0.1); 
+  osc4.amp(oscAmp4*amplitudeBias); 
     osc4.freq(oscFreq4);
   
   oscAmp5 = map(oscAmp5, 0, 255, 0, 1);       
-  osc5.amp(oscAmp5*0.1);
+  osc5.amp(oscAmp5*amplitudeBias);
     osc5.freq(oscFreq5);
 
   oscAmp6 = map(oscAmp6, 0, 255, 0, 1);         
-  osc6.amp(oscAmp6*0.1); 
+  osc6.amp(oscAmp6*amplitudeBias); 
     osc6.freq(oscFreq6);
   
   oscAmp7 = map(oscAmp7, 0, 255, 0, 1);   
-  osc7.amp(oscAmp7*0.1); 
+  osc7.amp(oscAmp7*amplitudeBias); 
     osc7.freq(oscFreq7);
 
   oscAmp8 = map(oscAmp8, 0, 255, 0, 1);     
-  osc8.amp(oscAmp8*0.1);
+  osc8.amp(oscAmp8*amplitudeBias);
     osc8.freq(oscFreq8);
     
 // Filter Parameters
@@ -303,7 +305,8 @@ function draw() {
   beginShape();
  
     for (i = 0; i<spectrum.length; i++) {
-      stroke(255,120,200);
+      // stroke(255,120,200);
+      stroke(200,217,239);      
       var x = map(i, 0, spectrum.length, 0, 5000);
       var y = map(spectrum[i], 0, 512, height, 0);
       vertex(x, y);
