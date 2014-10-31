@@ -23,7 +23,7 @@ function setup() {
 // General Block
   createCanvas(1100, 550);
   
-  mainLabel = createDiv('<div style="color:#FFFFFF"> <a href=https://cskonopka.github.io/p5js/ style="color:#FFFFFF"; text-align:center;><h3>sine playground ~ christopher konopka</h3></div>');
+  mainLabel = createDiv('<div style="color:#FFFFFF"> <a href=https://cskonopka.github.io/p5js/ style="color:#FFFFFF"; text-align:center;><h3>sawtooth playground ~ christopher konopka</h3></div>');
   mainLabel.position(740, -10);
 
   githubLabel = createDiv('<div style="color:#FFFFFF"> <a href=https://github.com/cskonopka/p5js style="color:#FFFFFF"; text-align:center;><h3>github</h3></a>');
