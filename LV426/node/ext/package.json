@@ -1,0 +1,27 @@
+{
+  "name": "ext",
+  "description": "High quality core extensions",
+  "version": "0.6.1",
+  "author": {
+    "name": "TJ Holowaychuk",
+    "email": "tj@vision-media.ca"
+  },
+  "directories": {
+    "lib": "./lib/ext"
+  },
+  "_id": "ext@0.6.1",
+  "engines": {
+    "node": "*"
+  },
+  "_nodeSupported": true,
+  "_npmVersion": "0.2.7-2",
+  "_nodeVersion": "v0.3.1-pre",
+  "dist": {
+    "tarball": "http://registry.npmjs.org/ext/-/ext-0.6.1.tgz",
+    "shasum": "0a5218916b54ce04ae5ebbaa0893a6180f6b0f33"
+  },
+  "_shasum": "0a5218916b54ce04ae5ebbaa0893a6180f6b0f33",
+  "_from": "ext@",
+  "_resolved": "https://registry.npmjs.org/ext/-/ext-0.6.1.tgz",
+  "readme": "ERROR: No README data found!"
+}
