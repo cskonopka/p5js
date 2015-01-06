@@ -1,11 +1,18 @@
 var xBall=50;
 var yBall=50;
 
+var orb1, randX1, randY1, randVx1, randVy1,osc1,panningDirection1,panningVolume1;
+
+var orb2, randX2, randY2, randVx2, randVy2,osc2,panningDirection2,panningVolume2;
+var osc3,panningDirection3,panningVolume3;   
+var mic;
+var fft = [];
 var xOrigin,yOrigin;
 var orbs = [];
 var oscs = [];
 var saws = [];
 var randFQ = [];
+var flock;
 var volRandHI = [];
 var randVx = [];
 var randVy = [];
@@ -15,6 +22,8 @@ var numOForbs;
 var panningVolume = [];
 var panningDirection = [];
 var randRes = [];
+
+var spectrum = [];
 var numWaveforms ;
 var numSAWS  ;
 var numTRIS  ;
@@ -27,13 +36,13 @@ var    panningVolume2=[];
 
 
 
-var randFQsine    = [];
-var randQsine     = [];   
-var randRessine   = [];
-var   filterSINE  = [];  
-var fQsineL       = [];
-var fQsineH       = [];
-var fRessineL     = [];
+var randFQsine = [];
+var randQsine   = [];   
+var randRessine = [];
+var   filterSINE = [];  
+var fQsineL   = [];
+var fQsineH   = [];
+var fRessineL   = [];
 var fRessineH     = [];
 
 
@@ -67,18 +76,48 @@ var position;
 var alien;
 
 function setup() {
+//vey8vlzHUkymzorYDbcIug
 
-  alien    =   loadImage("../addons/alien.png");  // Load the image 
+
+
+ // loadJSON('http://realtime.mbta.com/developer/api/v2/alertheaders?api_key=vey8vlzHUkymzorYDbcIug&format=json', gotWeather);
+    alien    =   loadImage("../addons/alien.png");  // Load the image 
 
   createCanvas(gWidth, gHeight);
 
   numWaveforms  = random(1, 5);
 
+
+
+
+  // numWaveforms  = 3;  
+
+  // numSAWS   = random(1, 4);
   numSAWS   = 0;  
 
   numTRIS   = 0;   
 
   numOForbs = numWaveforms+numSAWS+numTRIS;
+
+  // var x = 
+  // var y = 
+  // var vX =     
+  // var vY = 
+  
+  // var fSINElo
+  // var fSINEhi
+ 
+  // var fSAWlo ;
+  // var fSAWhi;
+  // var fTRIlo;
+  // var fTRIhi ;
+  // var fQL ;
+  // var fQH ;
+  // var fResL ;
+  // var fResH;
+  // var numD  ;
+
+
 
 var numWVFM     =     numOForbs           , 
     vol         =     0.3         , 
@@ -106,8 +145,46 @@ var numWVFM     =     numOForbs           ,
     fRestriH    =     1.2         , 
     numD        =     40          ;
 
-                      // num,      vol,  x,    y,    vX,   vY,   fSINlo, fSINEhi, fQL,    fQH,    fResL,  fResH,  numD
+
+
+                 // num,      vol,  x,    y,    vX,   vY,   fSINlo, fSINEhi, fQL,    fQH,    fResL,  fResH,  numD
   orbInterationWAVEFORMS(numWVFM, vol, x, y, vX, vY, fSINElo, fSINEhi, fQsineL,fQsineH, fRessineL, fRessineH, fSAWlo, fSAWhi, fQsawL,fQsawH, fRessawL, fRessawH, fTRIlo, fTRIhi, fQtriL,fQtriH, fRestriL, fRestriH, numD);
+
+  // orbInterationSAW(numSAWS, 0.2,  970,  580, 1.3,  2.5,   374,  147,  47,   233  ,   .22,   2.7,     75);
+
+
+
+  //                // num,      vol,  x,    y,    vX,   vY,   fSINlo, fSINEhi, fQL,    fQH,    fResL,  fResH,  numD
+  // orbInterationSAWS(numSAWS, 0.7,  658,  376,  1.3,  .2,   240,  480,  130,   340,   .02,    .7,     40);
+
+//          for (var i=0; i<numOForbs; i++) {
+
+//     saws[i]               =   new p5.SawOsc();
+// }
+
+//   for (var i=0; i<numOForbs; i++) {
+
+// var vol = 0.1;
+//     volRandHI[i]          =   random(0.013      ,   0.1);  
+//     // panningDirection[i]   =   map(orbs[i].x  , 0.0  ,  gWidth   ,  -1.0  ,   1.0);
+//     panningVolume[i]      =   map(orbs[i].y  , 0.0  ,  gHeight   ,  0.0   ,   volRandHI[i] );
+ 
+var mainLabel;
+var nameLink;
+var quoteLabel;
+
+fill(255);
+mainLabel = createDiv('<div style="color:#FFFFFF; height:340px;width:240px;border:0px solid #ccc; border-color:#000000; font:14px Courier New;overflow:auto;">"HE DERELICT ON LV-426, CODENAMED ORIGIN AND ALSO KNOWN AS THE ALIEN DERELICT, WAS A CRASHED JUGGERNAUT-TYPE ENGINEER SPACECRAFT. SOME TIME IN 2122, A WARNING SIGNAL BEING BROADCAST FROM THE DERELICT WAS DETECTED BY WEYLAND-YUTANI AND THE COMMERCIAL HAULER USCSS NOSTROMO WAS SUBSEQUENTLY SENT TO INVESTIGATE, WITHOUT THE KNOWLEDGE OF ITS CREW. THE SHIP WAS BELIEVED TO HAVE CRASHED ON LV-426 SEVERAL MILLENNIA PRIOR TO THE ARRIVAL OF THE NOSTROMO."</div>');
+// mainLabel = createDiv('<div style="color:#FFFFFF"> <a href=https://cskonopka.github.io/p5js/ style="color:#FFFFFF"; text-align:center;><h3>sine-wave playground ~ christopher konopka</h3></div>');
+  mainLabel.position(10, 100);
+
+// quoteLabel = createDiv('<div style="color:#FFFFFF; height:340px;width:240px;border:1px solid #ccc; border-color:#000000; font:14px Courier New;overflow:auto;">"DAY ON ACHERON WAS DIM TWILIGHT, NIGHT WAS DARKER THAN THE FARTHEST REACHES OF INTERSTELLAR SPACE, BECAUSE NOT EVEN STARS SHONE THROUGH ITS DENSE ATMOSPHERE TO SOFTEN THE BARREN SURFACE WITH TWINKLING LIGHT."</div>');
+// // mainLabel = createDiv('<div style="color:#FFFFFF"> <a href=https://cskonopka.github.io/p5js/ style="color:#FFFFFF"; text-align:center;><h3>sine-wave playground ~ christopher konopka</h3></div>');
+//   quoteLabel.position(10, 100);
+  
+  nameLink = createDiv('<a href="http://www.christopherkonopka.com"><font color="white">Christopher Konopka</font></a>');
+// mainLabel = createDiv('<div style="color:#FFFFFF"> <a href=https://cskonopka.github.io/p5js/ style="color:#FFFFFF"; text-align:center;><h3>sine-wave playground ~ christopher konopka</h3></div>');
+  nameLink.position(10, 515);
 
 }
 
@@ -116,21 +193,33 @@ function draw() {
   image(alien, 0, 0);  
   noStroke();  
 
-  fill(255);
-  textSize(24);
-  textFont("Courier New");
-  text("EXPLORING LV-426", 10, 30);
-  
-  fill(255);
-  textSize(14);
-  textFont("Courier New");
-  text("A SONIFIED INTERPRETATION OF", 10, 60);
-  text("SEARCHING A DERELICT SHIP", 10, 80);
-  
-  fill(255);
-  textSize(14);
-  textFont("Courier New");
-  text("BY CHRISTOPHER KONOPKA", 10, 120);
+fill(255);
+textSize(24);
+textFont("Courier New");
+text("EXPLORING LV-426", 10, 30);
+
+fill(255);
+textSize(16);
+textFont("Courier New");
+text("A SONIFIED INTERPRETATION", 10, 60);
+text("OF A DERELICT SHIP", 10, 80);
+
+// fill(255);
+// textSize(16);
+// textFont("Courier New");
+// text("THE DERELICT ON LV-426, CODENAMED ORIGIN AND ALSO KNOWN AS THE ALIEN DERELICT, WAS A CRASHED JUGGERNAUT-TYPE ENGINEER SPACECRAFT. SOME TIME IN 2122, A WARNING SIGNAL BEING BROADCAST FROM THE DERELICT WAS DETECTED BY WEYLAND-YUTANI AND THE COMMERCIAL HAULER USCSS NOSTROMO WAS SUBSEQUENTLY SENT TO INVESTIGATE, WITHOUT THE KNOWLEDGE OF ITS CREW. THE SHIP WAS BELIEVED TO HAVE CRASHED ON LV-426 SEVERAL MILLENNIA PRIOR TO THE ARRIVAL OF THE NOSTROMO.");
+
+
+// fill(255);
+// textSize(14);
+// textFont("Courier New");
+// text("~ CHRISTOPHER KONOPKA ~", 10, 530);
+
+// fill(255);
+// textSize(14);
+// textFont("Courier New");
+// text("BY CHRISTOPER KONOPKA", 700, 60);
+
 
   for (var i=0; i<numOForbs; i++) {
  
@@ -153,6 +242,9 @@ function draw() {
     smooth(0.3);
   }
 }
+
+
+
 
 function orbInterationWAVEFORMS(numWVFM, vol, x, y, vX, vY, fSINElo, fSINEhi, fQsineL,fQsineH, fRessineL, fRessineH, fSAWlo, fSAWhi, fQsawL,fQsawH, fRessawL, fRessawH, fTRIlo, fTRIhi, fQtriL,fQtriH, fRestriL, fRestriH, numD){
   for (var i = 0; i < numWVFM; i++) {
